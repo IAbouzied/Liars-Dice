@@ -3,11 +3,13 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
+var Game = require('./lib/Game');
 
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 var port = process.env.PORT || 8080;
+var game = new Game();
 
 app.use('/static', express.static(__dirname + '/static'));
 
@@ -22,12 +24,7 @@ server.listen(port, () => {
 });
 
 io.on('connection', (socket) => {
-    console.log(`socket ${socket.id} connected`);
-})
-
-var num = 1;
-
-setInterval(() => {
-    io.sockets.emit('message', num);
-    num++;
-}, 3000);
+    socket.on('new-player', () => {
+        game.addPlayer(socket);
+    });
+});
