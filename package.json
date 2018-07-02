@@ -1,0 +1,23 @@
+{
+  "name": "liars-dice",
+  "version": "1.0.0",
+  "description": "Multiplayer game using socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IAbouzied/Liars-Dice.git"
+  },
+  "author": "Ibrahim Abouzied",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IAbouzied/Liars-Dice/issues"
+  },
+  "homepage": "https://github.com/IAbouzied/Liars-Dice#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
