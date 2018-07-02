@@ -7,8 +7,9 @@ var socketIO = require('socket.io');
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-
 var port = process.env.PORT || 8080;
+
+app.use('/static', express.static(__dirname + '/static'));
 
 // Routing
 app.get('/', (req, res) => {
@@ -19,3 +20,14 @@ app.get('/', (req, res) => {
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+io.on('connection', (socket) => {
+    console.log(`socket ${socket.id} connected`);
+})
+
+var num = 1;
+
+setInterval(() => {
+    io.sockets.emit('message', num);
+    num++;
+}, 3000);
