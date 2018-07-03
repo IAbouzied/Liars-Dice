@@ -24,11 +24,22 @@ server.listen(port, () => {
 });
 
 io.on('connection', (socket) => {
+    // Send player list initally
+    socket.emit("update-player-list", {
+        playerNames: game.getPlayerNames()
+    });
+
     socket.on('connect-player', (data) => {
         game.addPlayer(socket, data);
+        io.sockets.emit("update-player-list", {
+            playerNames: game.getPlayerNames()
+        });
     });
 
     socket.on('disconnect', () => {
         game.removePlayer(socket);
+        io.sockets.emit("update-player-list", {
+            playerNames: game.getPlayerNames()
+        });
     });
 });
