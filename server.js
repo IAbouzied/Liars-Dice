@@ -24,11 +24,11 @@ server.listen(port, () => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('new-player', () => {
-        game.addPlayer(socket);
+    socket.on('connect-player', (data) => {
+        game.addPlayer(socket, data);
     });
 
     socket.on('disconnect', () => {
         game.removePlayer(socket);
-    })
+    });
 });
