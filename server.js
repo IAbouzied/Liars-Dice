@@ -27,4 +27,8 @@ io.on('connection', (socket) => {
     socket.on('new-player', () => {
         game.addPlayer(socket);
     });
+
+    socket.on('disconnect', () => {
+        game.removePlayer(socket);
+    })
 });
