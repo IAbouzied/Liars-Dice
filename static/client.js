@@ -1,9 +1,10 @@
 var socket = io();
 
-var username_field = document.getElementById("username");
+var username_field = document.getElementById("username-field");
 var player_list = document.getElementById("player-list");
 var raise_button = document.getElementById("raise-button");
 var call_lie_button = document.getElementById("call-lie-button");
+var username_div = document.getElementById("username-div");
 
 socket.on("update-player-list", (data) => {
     updatePlayerList(data.players);
@@ -26,6 +27,12 @@ function updatePlayerList(players) {
 function connectPlayer() {
     if (username_field.value != "") {
         socket.emit('connect-player', username_field.value);
+        
+        // Putting in title
+        username_div.innerHTML = "";
+        var title = document.createElement('h2');
+        title.textContent = "Welcome " + username_field.value;
+        username_div.appendChild(title);
     }
 }
 
