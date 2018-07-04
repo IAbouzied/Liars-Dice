@@ -11,15 +11,19 @@
 <body>
     <h1>Liars Dice</h1>
     <p>Multiplayer game using socket.io</p>
-    <div>
+    <div class="username-submission-field">
         Username:
         <input type="text" id="username">
         <button onclick="connectPlayer()">Submit name</button>
     </div>
-    <div>
+    <div class="players-connected">
         <h2>Players connected</h2>
         <ul id="player-list">
         </ul>
+    </div>
+    <div class="turn-action">
+        <button id="raise-button" onclick="raise()" disabled>Raise</button>
+        <button id="call-lie-button">Call lie</button>
     </div>
     <script src="/static/client.js"></script>
 </body>
