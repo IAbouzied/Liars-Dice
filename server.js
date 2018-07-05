@@ -43,6 +43,11 @@ io.on('connection', (socket) => {
         });
     });
 
+    socket.on('request-game-start', () => {
+        game.startGame(socket.id);
+        if (game.gameStarted) io.sockets.emit('start-game');
+    });
+
     socket.on('raise', () => {
         game.raise(socket.id);
         io.sockets.emit("update-player-list", {

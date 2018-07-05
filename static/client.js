@@ -5,9 +5,18 @@ var player_list = document.getElementById("player-list");
 var raise_button = document.getElementById("raise-button");
 var call_lie_button = document.getElementById("call-lie-button");
 var username_div = document.getElementById("username-div");
+var turn_action_div = document.getElementById("turn-action-div");
 
 socket.on("update-player-list", (data) => {
     updatePlayerList(data.players);
+});
+
+socket.on('notify-host', () => {
+    becomeHost();
+});
+
+socket.on('start-game', () => {
+    gameStarted();
 });
 
 function updatePlayerList(players) {
@@ -34,6 +43,21 @@ function connectPlayer() {
         title.textContent = "Welcome " + username_field.value;
         username_div.appendChild(title);
     }
+}
+
+function becomeHost() {
+    var start_button = document.createElement('button');
+    start_button.onclick = requestGameStart;
+    start_button.textContent = "Begin game";
+    username_div.appendChild(start_button);
+}
+
+function requestGameStart() {
+    socket.emit('request-game-start');
+}
+
+function gameStarted() {
+    turn_action_div.hidden = false;
 }
 
 function raise() {
