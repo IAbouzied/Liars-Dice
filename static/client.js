@@ -23,13 +23,20 @@ function updatePlayerList(players) {
     player_list.innerHTML = "";
     for (var i=0; i < players.length; i++) {
         // Raise button
-        if (players[i].socketID == socket.id) raise_button.disabled = !players[i].isTurn;
-
+        
         // Listing the element
         var list_elem = document.createElement("li");
         list_elem.textContent = players[i].name;
         if (players[i].isTurn) list_elem.style.fontWeight = 'bold';
         player_list.appendChild(list_elem);
+
+        if (players[i].socketID == socket.id) {
+            raise_button.disabled = !players[i].isTurn;
+            list_elem.textContent += " " + players[i].dice_rolls.toString();
+        }
+        else if (players[i].dice_rolls.length != 0) {
+            list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
+        }
     }
 }
 

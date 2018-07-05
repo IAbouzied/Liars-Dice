@@ -31,27 +31,30 @@ io.on('connection', (socket) => {
 
     socket.on('connect-player', (data) => {
         game.addPlayer(socket, data);
-        io.sockets.emit("update-player-list", {
-            players: game.getPlayers()
-        });
+        sendUpdatedState();
     });
 
     socket.on('disconnect', () => {
         game.removePlayer(socket);
-        io.sockets.emit("update-player-list", {
-            players: game.getPlayers()
-        });
+        sendUpdatedState();
     });
 
     socket.on('request-game-start', () => {
         game.startGame(socket.id);
-        if (game.gameStarted) io.sockets.emit('start-game');
+        if (game.gameStarted) {
+            io.sockets.emit('start-game');
+            sendUpdatedState();
+        }
     });
 
     socket.on('raise', () => {
         game.raise(socket.id);
-        io.sockets.emit("update-player-list", {
-            players: game.getPlayers()
-        });
+        sendUpdatedState();
     });
 });
+
+function sendUpdatedState() {
+    io.sockets.emit("update-player-list", {
+        players: game.getPlayers()
+    });
+}
