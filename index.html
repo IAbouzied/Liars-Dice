@@ -16,13 +16,24 @@
         <input type="text" id="username-field">
         <button onclick="connectPlayer()">Submit name</button>
     </div>
-    <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the face and/or quantity of bid.</p>
+    <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
     <div class="players-connected">
         <h2>Players connected</h2>
         <ul id="player-list">
         </ul>
     </div>
     <div id="turn-action-div" hidden>
+        Bid Quantity: <input type="number" id="bid-amount"><br>
+        Bid Face: 
+        <select id="bid-face">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        <br>
         <button id="raise-button" onclick="raise()" disabled>Raise</button>
         <button id="call-lie-button">Call lie</button>
     </div>

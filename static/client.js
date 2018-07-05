@@ -6,9 +6,12 @@ var raise_button = document.getElementById("raise-button");
 var call_lie_button = document.getElementById("call-lie-button");
 var username_div = document.getElementById("username-div");
 var turn_action_div = document.getElementById("turn-action-div");
+var bid_amount = document.getElementById("bid-amount");
+var bid_face = document.getElementById("bid-face");
 
-socket.on("update-player-list", (data) => {
+socket.on("updated-state", (data) => {
     updatePlayerList(data.players);
+    bid_amount.min = data.bidAmount;
 });
 
 socket.on('notify-host', () => {
@@ -68,6 +71,10 @@ function gameStarted() {
 }
 
 function raise() {
-    console.log("Sending raise");
-    socket.emit('raise');
+    if (bid_amount.value != 0) {
+        socket.emit('raise', {
+            amount: bid_amount.value,
+            face: bid_face.value
+        });
+    }
 }

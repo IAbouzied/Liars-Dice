@@ -25,8 +25,10 @@ server.listen(port, '0.0.0.0', () => {
 
 io.on('connection', (socket) => {
     // Send player list initally
-    socket.emit("update-player-list", {
-        players: game.getPlayers()
+    socket.emit("updated-state", {
+        players: game.getPlayers(),
+        bidAmount: game.bidAmount,
+        bidFace: game.bidFace
     });
 
     socket.on('connect-player', (data) => {
@@ -47,14 +49,16 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('raise', () => {
-        game.raise(socket.id);
+    socket.on('raise', (data) => {
+        game.raise(socket.id, data);
         sendUpdatedState();
     });
 });
 
 function sendUpdatedState() {
-    io.sockets.emit("update-player-list", {
-        players: game.getPlayers()
+    io.sockets.emit("updated-state", {
+        players: game.getPlayers(),
+        bidAmount: game.bidAmount,
+        bidFace: game.bidFace
     });
 }
