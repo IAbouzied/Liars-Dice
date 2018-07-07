@@ -78,3 +78,7 @@ function raise() {
         });
     }
 }
+
+function lie() {
+    socket.emit('lie');
+}

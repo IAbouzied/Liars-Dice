@@ -53,6 +53,11 @@ io.on('connection', (socket) => {
         game.raise(socket.id, data);
         sendUpdatedState();
     });
+
+    socket.on('lie', () => {
+        game.evaluateLie(socket.id);
+        sendUpdatedState();
+    });
 });
 
 function sendUpdatedState() {
