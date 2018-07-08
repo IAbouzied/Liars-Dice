@@ -11,10 +11,10 @@ var bid_face = document.getElementById("bid-face");
 var recent_action = document.getElementById("recent-action");
 
 socket.on("updated-state", (data) => {
-    updatePlayerList(data.players);
     bid_amount.min = data.bidAmount;
     recent_action.textContent = data.message;
     call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);    
+    updatePlayerList(data.players);
 });
 
 socket.on('notify-host', () => {
@@ -36,10 +36,19 @@ function updatePlayerList(players) {
 
         if (players[i].socketID == socket.id) {
             raise_button.disabled = !players[i].isTurn;
-            list_elem.textContent += " " + players[i].dice_rolls.toString();
+            if (players[i].dice_rolls.length != 0) {
+                list_elem.textContent += " " + players[i].dice_rolls.toString();
+            }
+            else {
+                list_elem.textContent += " is out of dice!";
+                call_lie_button.disabled = true;
+            }
         }
         else if (players[i].dice_rolls.length != 0) {
             list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
+        }
+        else {
+            list_elem.textContent += " is out of dice!";
         }
     }
 }
