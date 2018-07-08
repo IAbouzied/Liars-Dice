@@ -14,6 +14,7 @@ socket.on("updated-state", (data) => {
     updatePlayerList(data.players);
     bid_amount.min = data.bidAmount;
     recent_action.textContent = data.message;
+    call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);    
 });
 
 socket.on('notify-host', () => {
@@ -27,8 +28,6 @@ socket.on('start-game', () => {
 function updatePlayerList(players) {
     player_list.innerHTML = "";
     for (var i=0; i < players.length; i++) {
-        // Raise button
-        
         // Listing the element
         var list_elem = document.createElement("li");
         list_elem.textContent = players[i].name;
