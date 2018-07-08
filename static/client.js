@@ -8,10 +8,12 @@ var username_div = document.getElementById("username-div");
 var turn_action_div = document.getElementById("turn-action-div");
 var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
+var recent_action = document.getElementById("recent-action");
 
 socket.on("updated-state", (data) => {
     updatePlayerList(data.players);
     bid_amount.min = data.bidAmount;
+    recent_action.textContent = data.message;
 });
 
 socket.on('notify-host', () => {
