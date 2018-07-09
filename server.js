@@ -30,7 +30,8 @@ io.on('connection', (socket) => {
         bidAmount: game.bidAmount,
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
-        message: game.gameMessage
+        message: game.gameMessage,
+        active: game.roundActive
     });
 
     socket.on('connect-player', (data) => {
@@ -60,6 +61,11 @@ io.on('connection', (socket) => {
         game.evaluateLie(socket.id);
         sendUpdatedState();
     });
+
+    socket.on('request-next-round', () => {
+        game.startNextRound(socket.id);
+        sendUpdatedState();
+    });
 });
 
 function sendUpdatedState() {
@@ -68,6 +74,7 @@ function sendUpdatedState() {
         bidAmount: game.bidAmount,
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
-        message: game.gameMessage
+        message: game.gameMessage,
+        active: game.roundActive
     });
 }

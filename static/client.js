@@ -9,12 +9,13 @@ var turn_action_div = document.getElementById("turn-action-div");
 var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
 var recent_action = document.getElementById("recent-action");
+var request_round_button = document.getElementById("begin-next-round");
 
 socket.on("updated-state", (data) => {
     bid_amount.min = data.bidAmount;
     recent_action.textContent = data.message;
-    call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);    
-    updatePlayerList(data.players);
+    call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);   
+    updatePlayerList(data.players, data.active);
 });
 
 socket.on('notify-host', () => {
@@ -25,7 +26,7 @@ socket.on('start-game', () => {
     gameStarted();
 });
 
-function updatePlayerList(players) {
+function updatePlayerList(players, active) {
     player_list.innerHTML = "";
     for (var i=0; i < players.length; i++) {
         // Listing the element
@@ -35,7 +36,8 @@ function updatePlayerList(players) {
         player_list.appendChild(list_elem);
 
         if (players[i].socketID == socket.id) {
-            raise_button.disabled = !players[i].isTurn;
+            raise_button.disabled = !players[i].isTurn || !active;
+            request_round_button.hidden = !players[i].isTurn || active;
             if (players[i].dice_rolls.length != 0) {
                 list_elem.textContent += " " + players[i].dice_rolls.toString();
             }
@@ -45,7 +47,8 @@ function updatePlayerList(players) {
             }
         }
         else if (players[i].dice_rolls.length != 0) {
-            list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
+            if (active) list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
+            else list_elem.textContent += " " + players[i].dice_rolls.toString();
         }
         else {
             list_elem.textContent += " is out of dice!";
@@ -91,4 +94,8 @@ function raise() {
 
 function lie() {
     socket.emit('lie');
+}
+
+function requestNextRound() {
+    socket.emit('request-next-round');
 }
