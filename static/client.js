@@ -10,10 +10,14 @@ var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
 var recent_action = document.getElementById("recent-action");
 var request_round_button = document.getElementById("begin-next-round");
+var event_list = document.getElementById("event-list");
 
 socket.on("updated-state", (data) => {
     bid_amount.min = data.bidAmount;
-    recent_action.textContent = data.message;
+    if (data.message != null) {
+        recent_action.textContent = data.message;
+        addEvent(data.message);
+    }
     call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);   
     updatePlayerList(data.players, data.active);
 });
@@ -32,14 +36,14 @@ function updatePlayerList(players, active) {
         // Listing the element
         var list_elem = document.createElement("li");
         list_elem.textContent = players[i].name;
-        if (players[i].isTurn) list_elem.style.fontWeight = 'bold';
+        if (players[i].isTurn) list_elem.classList += 'current-turn';
         player_list.appendChild(list_elem);
 
         if (players[i].socketID == socket.id) {
             raise_button.disabled = !players[i].isTurn || !active;
             request_round_button.hidden = !players[i].isTurn || active;
             if (players[i].dice_rolls.length != 0) {
-                list_elem.textContent += " " + players[i].dice_rolls.toString();
+                list_elem.textContent += " " + players[i].dice_rolls.join(' ');
             }
             else {
                 list_elem.textContent += " is out of dice!";
@@ -48,7 +52,7 @@ function updatePlayerList(players, active) {
         }
         else if (players[i].dice_rolls.length != 0) {
             if (active) list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
-            else list_elem.textContent += " " + players[i].dice_rolls.toString();
+            else list_elem.textContent += " " + players[i].dice_rolls.join(' ');
         }
         else {
             list_elem.textContent += " is out of dice!";
@@ -90,6 +94,13 @@ function raise() {
             face: bid_face.value
         });
     }
+}
+
+function addEvent(event) {
+    var list_elem = document.createElement("li");
+    list_elem.textContent = event;
+    event_list.appendChild(list_elem);
+    event_list.scrollTop = event_list.scrollHeight;
 }
 
 function lie() {
