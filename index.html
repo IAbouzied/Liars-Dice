@@ -5,40 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Liars Dice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="" />
+    <link rel="stylesheet" type="text/css" media="screen" href="static/game.css" />
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <h1>Liars Dice</h1>
-    <p>Multiplayer game using socket.io</p>
-    <div id="username-div">
-        Username:
-        <input type="text" id="username-field">
-        <button onclick="connectPlayer()">Submit name</button>
+    <div class="heading">
+        <h1>Liars Dice</h1>
     </div>
-    <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
-    <div class="players-connected">
-        <h2>Players connected</h2>
-        <ul id="player-list">
-        </ul>
-        <p id="recent-action"></p>
+    <div class="content">
+        <div class="rules">
+            <h2>Rules</h2>
+            <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
+        </div>
+        <div class="registration" id="username-div">
+            <h2>Enter Game</h2>
+            Username:
+            <input type="text" id="username-field"><br>
+            <button onclick="connectPlayer()">Submit name</button>
+        </div>
+        <div class="players-connected">
+            <h2>Players</h2>
+            <ul id="player-list">
+
+            </ul>
+            <p id="recent-action"></p>
+        </div>
+        <div class="turn-action" id="turn-action-div" hidden>
+            <h2>Actions:</h2>
+            <p>Bid Quantity: <input type="number" id="bid-amount"></p>
+            <p>Bid Face: 
+            <select id="bid-face">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            </p>
+            <button id="raise-button" onclick="raise()" disabled>Raise</button>
+            <button id="call-lie-button" onclick="lie()">Call lie</button><br>
+            <button id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
+        </div>
+        <div class="events">
+            <ul class="event-list" id="event-list">
+    
+            </ul>
+        </div>
     </div>
-    <div id="turn-action-div" hidden>
-        Bid Quantity: <input type="number" id="bid-amount"><br>
-        Bid Face: 
-        <select id="bid-face">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
-        <br>
-        <button id="raise-button" onclick="raise()" disabled>Raise</button>
-        <button id="call-lie-button" onclick="lie()">Call lie</button><br>
-        <button id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
-    </div>
+    
     <script src="/static/client.js"></script>
 </body>
 </html>

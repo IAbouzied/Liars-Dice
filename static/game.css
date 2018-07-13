@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Frank Ruhl Libre', 'Times New Roman';
+}
+
+.heading {
+    background-color: rgb(163, 235, 231);
+    text-align: center;
+}
+
+.heading h1 {
+    padding: 15px;
+    font-size: 40px;
+}
+
+.content {
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+.content div {
+    margin: 20px 0;
+}
+
+.content p {
+    font-size: 18px;
+}
+
+.content button {
+    font-size: 20px;
+    padding: 10px 15px;
+    border-style: none;
+    margin: 10px auto;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    transition: all 0.3s;
+}
+
+.registration button {
+    background-color: #008CBA;
+    color: white;
+    text-align: center;
+    display: block;
+}
+
+.players-connected h2 {
+    text-decoration: underline;
+}
+
+.players-connected ul {
+    list-style: none;
+}
+
+.players-connected .current-turn {
+    font-weight: bold;
+}
+
+.turn-action button:enabled:hover {
+    background-color: grey;
+    color:white;
+}
+
+.events {
+    border-color: black;
+    border-style: solid;
+}
+
+.event-list {
+    height: 50px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
