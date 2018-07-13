@@ -31,7 +31,8 @@ io.on('connection', (socket) => {
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
         message: game.gameMessage,
-        active: game.roundActive
+        active: game.roundActive,
+        gameStarted: game.gameStarted
     });
 
     socket.on('connect-player', (data) => {
@@ -75,6 +76,7 @@ function sendUpdatedState() {
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
         message: game.gameMessage,
-        active: game.roundActive
+        active: game.roundActive,
+        gameStarted: game.gameStarted
     });
 }

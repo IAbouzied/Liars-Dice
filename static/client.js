@@ -19,7 +19,7 @@ socket.on("updated-state", (data) => {
         addEvent(data.message);
     }
     call_lie_button.disabled = (data.bidAmount == 0 || data.bidPlayer == socket.id);   
-    updatePlayerList(data.players, data.active);
+    updatePlayerList(data.players, data.active, data.gameStarted);
 });
 
 socket.on('notify-host', () => {
@@ -30,7 +30,7 @@ socket.on('start-game', () => {
     gameStarted();
 });
 
-function updatePlayerList(players, active) {
+function updatePlayerList(players, active, gameStarted) {
     player_list.innerHTML = "";
     for (var i=0; i < players.length; i++) {
         // Listing the element
@@ -46,7 +46,7 @@ function updatePlayerList(players, active) {
                 list_elem.textContent += " " + players[i].dice_rolls.join(' ');
             }
             else {
-                list_elem.textContent += " is out of dice!";
+                if (gameStarted) list_elem.textContent += " is out of dice!";
                 call_lie_button.disabled = true;
             }
         }
@@ -54,7 +54,7 @@ function updatePlayerList(players, active) {
             if (active) list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
             else list_elem.textContent += " " + players[i].dice_rolls.join(' ');
         }
-        else {
+        else if (gameStarted) {
             list_elem.textContent += " is out of dice!";
         }
     }
