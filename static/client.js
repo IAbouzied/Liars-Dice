@@ -11,6 +11,8 @@ var bid_face = document.getElementById("bid-face");
 var recent_action = document.getElementById("recent-action");
 var request_round_button = document.getElementById("begin-next-round");
 var event_list = document.getElementById("event-list");
+var chat_list = document.getElementById("chat-list");
+var chat_message_field = document.getElementById("chat-message");
 
 socket.on("updated-state", (data) => {
     bid_amount.min = data.bidAmount;
@@ -28,6 +30,10 @@ socket.on('notify-host', () => {
 
 socket.on('start-game', () => {
     gameStarted();
+});
+
+socket.on('chat-message-receive', (data) => {
+    updateChat(data.sender, data.message);
 });
 
 function updatePlayerList(players, active, gameStarted) {
@@ -69,6 +75,7 @@ function connectPlayer() {
         var title = document.createElement('h2');
         title.textContent = "Welcome " + username_field.value;
         username_div.appendChild(title);
+        chat_message_field.disabled = false;
     }
 }
 
@@ -110,3 +117,17 @@ function lie() {
 function requestNextRound() {
     socket.emit('request-next-round');
 }
+
+function updateChat(sender, message) {
+    var new_message = document.createElement('li');
+    new_message.innerHTML = `<b>${sender}:</b> ${message}`;
+    chat_list.appendChild(new_message);
+    chat_list.scrollTop = chat_list.scrollHeight;
+}
+
+chat_message_field.addEventListener("keypress", (event) => {
+    if (event.key == "Enter" && chat_message_field.value != "") {
+        socket.emit("chat-message-send", chat_message_field.value);
+        chat_message_field.value = "";
+    }
+});

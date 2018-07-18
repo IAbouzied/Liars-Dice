@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-server.listen(port, '192.168.1.71', () => {
+server.listen(port, '192.168.0.7', () => {
     console.log(`Server running on port ${port}`);
 });
 
@@ -66,6 +66,18 @@ io.on('connection', (socket) => {
     socket.on('request-next-round', () => {
         game.startNextRound(socket.id);
         sendUpdatedState();
+    });
+
+    socket.on('chat-message-send', (message) => {
+        var player = game.players.get(socket.id);
+        if (player != null) {
+            var sender_name = player.name;
+            console.log(`${sender_name}: ${message}`);
+            io.sockets.emit('chat-message-receive', {
+                sender: sender_name,
+                message: message
+            });
+        }
     });
 });
 

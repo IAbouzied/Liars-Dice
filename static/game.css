@@ -73,3 +73,9 @@
     overflow: hidden;
     overflow-y: scroll;
 }
+
+.chat-list {
+    height: 150px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
