@@ -9,6 +9,7 @@
 .heading {
     background-color: rgb(163, 235, 231);
     text-align: center;
+    border-bottom: black solid 1px;
 }
 
 .heading h1 {
@@ -21,15 +22,11 @@
     padding: 0 15px;
 }
 
-.content div {
-    margin: 20px 0;
-}
-
 .content p {
     font-size: 18px;
 }
 
-.content button {
+.content .big-button {
     font-size: 20px;
     padding: 10px 15px;
     border-style: none;
@@ -39,6 +36,10 @@
     transition: all 0.3s;
 }
 
+.registration {
+    margin: 20px 0px;
+}
+
 .registration button {
     background-color: #008CBA;
     color: white;
@@ -46,6 +47,9 @@
     display: block;
 }
 
+.players-connected {
+    margin: 20px 0;
+}
 .players-connected h2 {
     text-decoration: underline;
 }
@@ -66,16 +70,60 @@
 .events {
     border-color: black;
     border-style: solid;
+    margin: 20px 0;
+}
+
+.events h2 {
+    padding-left: 4px;
+    background-color: rgb(247, 202, 206);
 }
 
 .event-list {
     height: 50px;
     overflow: hidden;
     overflow-y: scroll;
+    border-top: black solid 1px;
+    padding: 3px 5px;
+}
+
+.chat {
+    border-color: black;
+    border-style: solid;
+    margin: 20px 0;
+}
+
+.chat h2 {
+    padding-left: 4px;
+    background-color: rgb(202, 247, 232);
+}
+
+.chat-bar {
+    display: flex;
+    margin: 0px;
+}
+
+.chat-bar button {
+    width: 50px;
+    font-size: 16px;
+    background-color: lightgreen;
+    border: none;
+    border-top: black 1px solid;
+    border-left: black solid 1px
+}
+
+.chat input {
+    box-sizing: border-box;
+    flex-grow: 6;
+    font-size: 15px;
+    border-style: none;        
+    border-top: black solid 1px;
+    padding: 0px 3px;
 }
 
 .chat-list {
     height: 150px;
+    border-top: black solid 1px;
     overflow: hidden;
     overflow-y: scroll;
+    padding: 3px 5px;
 }
