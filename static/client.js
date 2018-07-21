@@ -13,6 +13,7 @@ var request_round_button = document.getElementById("begin-next-round");
 var event_list = document.getElementById("event-list");
 var chat_list = document.getElementById("chat-list");
 var chat_message_field = document.getElementById("chat-message");
+var chat_button = document.getElementById("send-chat-button");
 
 socket.on("updated-state", (data) => {
     bid_amount.min = data.bidAmount;
@@ -76,6 +77,7 @@ function connectPlayer() {
         title.textContent = "Welcome " + username_field.value;
         username_div.appendChild(title);
         chat_message_field.disabled = false;
+        chat_button.disabled = false;
     }
 }
 
@@ -125,9 +127,15 @@ function updateChat(sender, message) {
     chat_list.scrollTop = chat_list.scrollHeight;
 }
 
-chat_message_field.addEventListener("keypress", (event) => {
-    if (event.key == "Enter" && chat_message_field.value != "") {
+function sendChatMessage() {
+    if (chat_message_field != "") {
         socket.emit("chat-message-send", chat_message_field.value);
         chat_message_field.value = "";
+    }
+}
+
+chat_message_field.addEventListener("keypress", (event) => {
+    if (event.key == "Enter") {
+        sendChatMessage();
     }
 });
