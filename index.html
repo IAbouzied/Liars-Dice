@@ -33,20 +33,23 @@
         </div>
         <div class="turn-action" id="turn-action-div" hidden>
             <h2>Actions:</h2>
-            <p>Bid Quantity: <input type="number" id="bid-amount"></p>
-            <p>Bid Face: 
-            <select id="bid-face">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-            </p>
-            <button class="big-button" id="raise-button" onclick="raise()" disabled>Raise</button>
-            <button class="big-button" id="call-lie-button" onclick="lie()">Call lie</button><br>
+            <div id="place_bid" hidden>
+                <p>Bid Quantity: <input type="number" id="bid-amount"></p>
+                <p>Bid Face: 
+                <select id="bid-face">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                </p>
+                <button class="big-button" id="raise-button" onclick="raise()">Raise</button>
+            </div>
+            <button class="big-button" id="call-lie-button" onclick="lie()" hidden>Call lie</button><br>
             <button class="big-button" id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
+            <button class="big-button" id="begin-game" onclick="requestGameStart()" hidden>Begin Game</button>
         </div>
         <div class="events">
             <h2>Events</h2>
