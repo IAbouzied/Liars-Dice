@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-server.listen(port, '192.168.0.7', () => {
+server.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);
 });
 
@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
         bidAmount: game.bidAmount,
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
-        message: game.gameMessage,
+        messages: game.gameMessages,
         active: game.roundActive,
         gameStarted: game.gameStarted
     });
@@ -87,8 +87,9 @@ function sendUpdatedState() {
         bidAmount: game.bidAmount,
         bidFace: game.bidFace,
         bidPlayer: game.biddingPlayerID,
-        message: game.gameMessage,
+        messages: game.gameMessages,
         active: game.roundActive,
         gameStarted: game.gameStarted
     });
+    game.gameMessages.length = 0;
 }

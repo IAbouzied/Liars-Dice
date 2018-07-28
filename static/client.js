@@ -18,11 +18,8 @@ var chat_button = document.getElementById("send-chat-button");
 var begin_game_button = document.getElementById("begin-game");
 
 socket.on("updated-state", (data) => {
-    bid_amount.min = data.bidAmount;
-    if (data.message != null) {
-        recent_action.textContent = data.message;
-        addEvent(data.message);
-    }
+    bid_amount.min = data.bidAmount + 1;
+    addEvents(data.messages);
     updatePlayerList(data.players, data.active, data.gameStarted);
     buttonVisibilities(data.gameStarted, isTurn(data.players), data.bidAmount != 0, data.bidPlayer, data.active);
 });
@@ -102,11 +99,18 @@ function raise() {
     }
 }
 
-function addEvent(event) {
-    var list_elem = document.createElement("li");
-    list_elem.textContent = event;
-    event_list.appendChild(list_elem);
-    event_list.scrollTop = event_list.scrollHeight;
+function addEvents(events) {
+    if (events != null && events.length > 0) {
+        for (var i=0; i < events.length; i++) {
+            var list_elem = document.createElement("li");
+            list_elem.textContent = events[i];
+            event_list.appendChild(list_elem);
+            if (i == events.length-1) {
+                recent_action.textContent = events[i];
+            }
+        }
+        event_list.scrollTop = event_list.scrollHeight;
+    }
 }
 
 function lie() {
