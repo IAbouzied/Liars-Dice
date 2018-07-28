@@ -79,7 +79,7 @@
 }
 
 .event-list {
-    height: 50px;
+    height: 100px;
     overflow: hidden;
     overflow-y: scroll;
     border-top: black solid 1px;
