@@ -127,3 +127,7 @@
     overflow-y: scroll;
     padding: 3px 5px;
 }
+
+.helper-text {
+    color: rgb(170, 0, 0);
+}
