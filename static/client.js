@@ -16,9 +16,10 @@ var chat_list = document.getElementById("chat-list");
 var chat_message_field = document.getElementById("chat-message");
 var chat_button = document.getElementById("send-chat-button");
 var begin_game_button = document.getElementById("begin-game");
+var helper_text = document.getElementById("helper-text");
 
 socket.on("updated-state", (data) => {
-    bid_amount.min = data.bidAmount + 1;
+    bid_amount.min = String(Number(data.bidAmount) + 1);
     addEvents(data.messages);
     updatePlayerList(data.players, data.active, data.gameStarted);
     buttonVisibilities(data.gameStarted, isTurn(data.players), data.bidAmount != 0, data.bidPlayer, data.active);
@@ -92,6 +93,12 @@ function gameStarted() {
 
 function raise() {
     if (bid_amount.value != 0) {
+        if (bid_amount.value < bid_amount.min) {
+            helper_text.textContent = `Your bid must be at least ${bid_amount.min}`;
+        }
+        else {
+            helper_text.textContent = "";
+        }
         socket.emit('raise', {
             amount: bid_amount.value,
             face: bid_face.value
@@ -114,6 +121,7 @@ function addEvents(events) {
 }
 
 function lie() {
+    helper_text.textContent = "";
     socket.emit('lie');
 }
 
