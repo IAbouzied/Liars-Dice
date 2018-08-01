@@ -36,6 +36,10 @@
     transition: all 0.3s;
 }
 
+.room-entry {
+    margin: 20px 0px;
+}
+
 .registration {
     margin: 20px 0px;
 }

@@ -1,22 +1,30 @@
 var socket = io();
 
+var room_name_field = document.getElementById("room-name");
+var create_room_button = document.getElementById("create-room");
+var join_room_button = document.getElementById("join-room");
+var room_helper_text = document.getElementById("room-helper-text");
+
 var username_field = document.getElementById("username-field");
-var player_list = document.getElementById("player-list");
-var raise_button = document.getElementById("raise-button");
-var raise_bid_div = document.getElementById("place_bid");
-var call_lie_button = document.getElementById("call-lie-button");
 var username_div = document.getElementById("username-div");
+var player_list = document.getElementById("player-list");
+
 var turn_action_div = document.getElementById("turn-action-div");
+var raise_bid_div = document.getElementById("place_bid");
+var raise_button = document.getElementById("raise-button");
+var call_lie_button = document.getElementById("call-lie-button");
 var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
+var turn_helper_text = document.getElementById("turn-helper-text");
+
 var recent_action = document.getElementById("recent-action");
+var begin_game_button = document.getElementById("begin-game");
 var request_round_button = document.getElementById("begin-next-round");
 var event_list = document.getElementById("event-list");
+
 var chat_list = document.getElementById("chat-list");
 var chat_message_field = document.getElementById("chat-message");
 var chat_button = document.getElementById("send-chat-button");
-var begin_game_button = document.getElementById("begin-game");
-var helper_text = document.getElementById("helper-text");
 
 socket.on("updated-state", (data) => {
     bid_amount.min = String(Number(data.bidAmount) + 1);
@@ -33,9 +41,31 @@ socket.on('start-game', () => {
     gameStarted();
 });
 
+socket.on('room-message', (message) => {
+    room_helper_text.textContent = message;
+});
+
 socket.on('chat-message-receive', (data) => {
     updateChat(data.sender, data.message);
 });
+
+function createRoom() {
+    if (room_name_field.value != "") {
+        socket.emit("create-room-request", room_name_field.value);
+    }
+    else {
+        room_helper_text.textContent = "Please enter a room name";
+    }
+}
+
+function joinRoom() {
+    if (room_name_field.value != "") {
+        socket.emit("join-room-request", room_name_field.value);
+    }
+    else {
+        room_helper_text.textContent = "Please enter a room name";
+    }
+}
 
 function updatePlayerList(players, active, gameStarted) {
     player_list.innerHTML = "";
@@ -94,10 +124,10 @@ function gameStarted() {
 function raise() {
     if (bid_amount.value != 0) {
         if (bid_amount.value < bid_amount.min) {
-            helper_text.textContent = `Your bid must be at least ${bid_amount.min}`;
+            turn_helper_text.textContent = `Your bid must be at least ${bid_amount.min}`;
         }
         else {
-            helper_text.textContent = "";
+            turn_helper_text.textContent = "";
         }
         socket.emit('raise', {
             amount: bid_amount.value,
@@ -121,7 +151,7 @@ function addEvents(events) {
 }
 
 function lie() {
-    helper_text.textContent = "";
+    turn_helper_text.textContent = "";
     socket.emit('lie');
 }
 

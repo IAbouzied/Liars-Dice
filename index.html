@@ -17,6 +17,13 @@
             <h2>Rules</h2>
             <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
         </div>
+        <div class="room-entry" id="room-div">
+            <h2>Enter Room:</h2>
+            Room: <input type="text" id="room-name"><br>
+            <button class="big-button" id="create-room" onclick="createRoom()">Create Room</button>
+            <button class="big-button" id="join-room" onclick="joinRoom()">Join Room</button>
+            <p id="room-helper-text" class="helper-text"></p>
+        </div>
         <div class="registration" id="username-div">
             <h2>Enter Game</h2>
             Username:
@@ -35,7 +42,7 @@
             <h2>Actions:</h2>
             <div id="place_bid" hidden>
                 <p>Bid Quantity: <input type="number" id="bid-amount"></p>
-                <p id="helper-text" class="helper-text"></p>
+                <p id="turn-helper-text" class="helper-text"></p>
                 <p>Bid Face: 
                 <select id="bid-face">
                     <option value="1">1</option>
