@@ -70,7 +70,12 @@ io.on('connection', (socket) => {
         var game = getSocketGame(socket);
         if (game != null) {
             game.removePlayer(socket);
-            updateStateAllPlayers(Object.keys(socket.rooms)[1]);
+            if (game.isEmpty()) {
+                games.delete(Object.keys(socket.rooms)[1]);
+            }
+            else {
+                updateStateAllPlayers(Object.keys(socket.rooms)[1]);
+            }
         }
     });
 
