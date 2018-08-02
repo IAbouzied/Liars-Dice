@@ -6,6 +6,8 @@ var join_room_button = document.getElementById("join-room");
 var room_helper_text = document.getElementById("room-helper-text");
 var room_div = document.getElementById("room-div");
 
+var game_div = document.getElementById("game-div");
+
 var username_field = document.getElementById("username-field");
 var username_div = document.getElementById("username-div");
 var player_list = document.getElementById("player-list");
@@ -44,6 +46,7 @@ socket.on('start-game', () => {
 
 socket.on('room-joined', () => {
     room_div.hidden = true;
+    game_div.hidden = false;
 });
 
 socket.on('room-message', (message) => {

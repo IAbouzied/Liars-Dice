@@ -13,10 +13,6 @@
         <h1>Liars Dice</h1>
     </div>
     <div class="content">
-        <div class="rules">
-            <h2>Rules</h2>
-            <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
-        </div>
         <div class="room-entry" id="room-div">
             <h2>Enter Room:</h2>
             Room: <input type="text" id="room-name"><br>
@@ -24,55 +20,61 @@
             <button class="big-button" id="join-room" onclick="joinRoom()">Join Room</button>
             <p id="room-helper-text" class="helper-text"></p>
         </div>
-        <div class="registration" id="username-div">
-            <h2>Enter Game</h2>
-            Username:
-            <input type="text" id="username-field"><br>
-            <button class="big-button" onclick="connectPlayer()">Submit name</button>
-        </div>
-        <div class="players-connected">
-            <h2>Players</h2>
-            <ul id="player-list">
-
-            </ul>
-            <br>
-            <p id="recent-action"></p>
-        </div>
-        <div class="turn-action" id="turn-action-div" hidden>
-            <h2>Actions:</h2>
-            <div id="place_bid" hidden>
-                <p>Bid Quantity: <input type="number" id="bid-amount"></p>
-                <p id="turn-helper-text" class="helper-text"></p>
-                <p>Bid Face: 
-                <select id="bid-face">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-                </p>
-                <button class="big-button" id="raise-button" onclick="raise()">Raise</button>
+        <div id="game-div" hidden>
+            <div class="rules">
+                <h2>Rules</h2>
+                <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
             </div>
-            <button class="big-button" id="call-lie-button" onclick="lie()" hidden>Call lie</button><br>
-            <button class="big-button" id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
-            <button class="big-button" id="begin-game" onclick="requestGameStart()" hidden>Begin Game</button>
-        </div>
-        <div class="events">
-            <h2>Events</h2>
-            <ul class="event-list" id="event-list">
-    
-            </ul>
-        </div>
-        <div class="chat">
-            <h2>Chat</h2>
-            <ul class="chat-list" id="chat-list">
+            <div class="registration" id="username-div">
+                <h2>Enter Game</h2>
+                Username:
+                <input type="text" id="username-field"><br>
+                <button class="big-button" onclick="connectPlayer()">Submit name</button>
+            </div>
+            <div class="players-connected">
+                <h2>Players</h2>
+                <ul id="player-list">
 
-            </ul>
-            <div class="chat-bar">
-                <input type="text" id="chat-message" placeholder="Type to chat" disabled>
-                <button id="send-chat-button" onclick="sendChatMessage()" disabled>Send</button>
+                </ul>
+                <br>
+                <p id="recent-action"></p>
+            </div>
+            <div class="turn-action" id="turn-action-div" hidden>
+                <h2>Actions:</h2>
+                <div id="place_bid" hidden>
+                    <p>Bid Quantity: <input type="number" id="bid-amount"></p>
+                    <p id="turn-helper-text" class="helper-text"></p>
+                    <p>Bid Face: 
+                    <select id="bid-face">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    </p>
+                    <button class="big-button" id="raise-button" onclick="raise()">Raise</button>
+                </div>
+                <button class="big-button" id="call-lie-button" onclick="lie()" hidden>Call lie<br></button>
+                <button class="big-button" id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
+                <button class="big-button" id="begin-game" onclick="requestGameStart()" hidden>Begin Game</button>
+            </div>
+            <div class="events">
+                <h2>Events</h2>
+                <ul class="event-list" id="event-list">
+        
+                </ul>
+            </div>
+            <div class="chat">
+                <h2>Chat</h2>
+                <ul class="chat-list" id="chat-list">
+
+                </ul>
+                <div class="chat-bar">
+                    <input type="text" id="chat-message" placeholder="Type to chat" disabled>
+                    <button id="send-chat-button" onclick="sendChatMessage()" disabled>Send</button>
+                </div>
             </div>
         </div>
     </div>
