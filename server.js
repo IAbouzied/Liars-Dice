@@ -28,7 +28,10 @@ io.on('connection', (socket) => {
     
     socket.on('join-room-request', (roomName) => {
         var game = games.get(roomName);
-        if (game != null) {
+        if (Object.keys(socket.rooms).length > 1) {
+            socket.emit("room-message", "You are already in a room");
+        }
+        else if (game != null) {
             socket.join(roomName);
             // Send player list initally
             socket.emit("updated-state", {
@@ -41,6 +44,7 @@ io.on('connection', (socket) => {
                 gameStarted: game.gameStarted
             });
             socket.emit("room-message", "");
+            socket.emit("room-joined");
         }
         else {
             socket.emit("room-message", `The room ${roomName} does not exist`);
@@ -48,10 +52,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('create-room-request', (roomName) => {
-        if (games.get(roomName) == null) {
+        if (Object.keys(socket.rooms).length > 1) {
+            socket.emit("room-message", "You are already in a room");
+        }
+        else if (games.get(roomName) == null) {
             games.set(roomName, new Game());
             socket.join(roomName);
             socket.emit("room-message", "");
+            socket.emit("room-joined");
         }
         else {
             socket.emit("room-message", `The room ${roomName} already exists`);
