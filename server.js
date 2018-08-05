@@ -126,6 +126,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('chat-message-send', (message) => {
+        var game = getSocketGame(socket);
         var player = game.players.get(socket.id);
         if (player != null) {
             var sender_name = player.name;
