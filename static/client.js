@@ -175,7 +175,7 @@ function updateChat(sender, message) {
 }
 
 function sendChatMessage() {
-    if (chat_message_field != "") {
+    if (chat_message_field.value != "") {
         socket.emit("chat-message-send", chat_message_field.value);
         chat_message_field.value = "";
     }
