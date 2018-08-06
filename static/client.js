@@ -11,6 +11,7 @@ var game_div = document.getElementById("game-div");
 var username_field = document.getElementById("username-field");
 var username_div = document.getElementById("username-div");
 var player_list = document.getElementById("player-list");
+var player_roll = document.getElementById("player-roll");
 
 var turn_action_div = document.getElementById("turn-action-div");
 var raise_bid_div = document.getElementById("place_bid");
@@ -20,7 +21,7 @@ var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
 var turn_helper_text = document.getElementById("turn-helper-text");
 
-var recent_action = document.getElementById("recent-action");
+var turn_indicator = document.getElementById("turn-indicator");
 var begin_game_button = document.getElementById("begin-game");
 var request_round_button = document.getElementById("begin-next-round");
 var event_list = document.getElementById("event-list");
@@ -81,23 +82,29 @@ function updatePlayerList(players, active, gameStarted) {
         // Listing the element
         var list_elem = document.createElement("li");
         list_elem.textContent = players[i].name;
-        if (players[i].isTurn) list_elem.classList += 'current-turn';
+        if (players[i].isTurn) {
+            list_elem.classList += 'current-turn';
+            if (gameStarted) {
+                turn_indicator.innerHTML = `It is <b>${players[i].name}</b>'s turn`;
+            }
+        }
         player_list.appendChild(list_elem);
+
+        if (players[i].dice_rolls.length != 0) {
+            if (active) list_elem.textContent += ` - ${players[i].dice_rolls.length} dice remaining`;
+            else list_elem.textContent += players[i].dice_rolls.join(' ');
+        }
+        else if (gameStarted) {
+            list_elem.textContent += " - Out of dice!";
+        }
 
         if (players[i].socketID == socket.id) {
             if (players[i].dice_rolls.length != 0) {
-                list_elem.textContent += " " + players[i].dice_rolls.join(' ');
+                player_roll.innerHTML = `<b>You Rolled:</b> ${players[i].dice_rolls.join(" ")}`;
             }
-            else {
-                if (gameStarted) list_elem.textContent += " is out of dice!";
+            else if (gameStarted) {
+                player_roll.textContent = '';
             }
-        }
-        else if (players[i].dice_rolls.length != 0) {
-            if (active) list_elem.textContent += " " + "X ".repeat(players[i].dice_amount);
-            else list_elem.textContent += " " + players[i].dice_rolls.join(' ');
-        }
-        else if (gameStarted) {
-            list_elem.textContent += " is out of dice!";
         }
     }
 }
@@ -150,9 +157,6 @@ function addEvents(events) {
             var list_elem = document.createElement("li");
             list_elem.textContent = events[i];
             event_list.appendChild(list_elem);
-            if (i == events.length-1) {
-                recent_action.textContent = events[i];
-            }
         }
         event_list.scrollTop = event_list.scrollHeight;
     }

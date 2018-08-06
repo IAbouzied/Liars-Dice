@@ -21,15 +21,16 @@
             <p id="room-helper-text" class="helper-text"></p>
         </div>
         <div id="game-div" hidden>
-            <div class="rules">
-                <h2>Rules</h2>
-                <p>Each player begins with 5 dice. During a player's turn, they can either raise the bid or call out the previous players bid. The bid represents how many dice of a certain face value the bidder claims there must be. Raising a bid requires raising the quantity of bid.</p>
-            </div>
             <div class="registration" id="username-div">
                 <h2>Enter Game</h2>
                 Username:
                 <input type="text" id="username-field"><br>
                 <button class="big-button" onclick="connectPlayer()">Submit name</button>
+            </div>
+            <div class="rules">
+                <h2>How to Play</h2>
+                <p>Objective: Survive to be the last remaining player</p>
+                <p>The goal of the game is to be the last player remainining. A player is out of the game when they lose all of their dice. Each round begins with a player placing a bid of how many of a chosen face they believe there are between all players. For example, if a player bids that there are two fours, they are claiming that between all players, there are <em>at least</em> two fours have been rolled. Once a bid has been made, any player can challenge the bid. Once a bid is challenged, all the dice are revealed and the either the bidder or the challenger lose a dice depending on the quantaty of the face bidded on. If no one challenges a bid, the turn proceeds to the next player who must either challenge the previous bid, or raise to a higher bid. The higher bid is only required to be higher in quantity, any face can be selected.</p>
             </div>
             <div class="players-connected">
                 <h2>Players</h2>
@@ -37,10 +38,11 @@
 
                 </ul>
                 <br>
-                <p id="recent-action"></p>
+                <p id="player-roll"></p>
+                <p id="turn-indicator"></p>
             </div>
             <div class="turn-action" id="turn-action-div" hidden>
-                <h2>Actions:</h2>
+                <h2>Actions</h2>
                 <div id="place_bid" hidden>
                     <p>Bid Quantity: <input type="number" id="bid-amount"></p>
                     <p id="turn-helper-text" class="helper-text"></p>
@@ -60,20 +62,22 @@
                 <button class="big-button" id="begin-next-round" onclick="requestNextRound()" hidden>Begin Next Round</button>
                 <button class="big-button" id="begin-game" onclick="requestGameStart()" hidden>Begin Game</button>
             </div>
-            <div class="events">
-                <h2>Events</h2>
-                <ul class="event-list" id="event-list">
-        
-                </ul>
-            </div>
-            <div class="chat">
-                <h2>Chat</h2>
-                <ul class="chat-list" id="chat-list">
-
-                </ul>
-                <div class="chat-bar">
-                    <input type="text" id="chat-message" placeholder="Type to chat" disabled>
-                    <button id="send-chat-button" onclick="sendChatMessage()" disabled>Send</button>
+            <div class="event-chat-boxes">
+                <div class="events">
+                    <h2>Events</h2>
+                    <ul class="event-list" id="event-list">
+            
+                    </ul>
+                </div>
+                <div class="chat">
+                    <h2>Chat</h2>
+                    <ul class="chat-list" id="chat-list">
+    
+                    </ul>
+                    <div class="chat-bar">
+                        <input type="text" id="chat-message" placeholder="Type to chat" disabled>
+                        <button id="send-chat-button" onclick="sendChatMessage()" disabled>Send</button>
+                    </div>
                 </div>
             </div>
         </div>
