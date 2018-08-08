@@ -1,5 +1,12 @@
 var socket = io();
 
+var darkness_sound = new Audio('/static/sounds/darkness.mp3');
+var bell_sound = new Audio('/static/sounds/bell.mp3');
+var dice_sound = new Audio('/static/sounds/dice_roll.mp3');
+var money_sound = new Audio('/static/sounds/chaching.mp3');
+var air_horns_sound = new Audio('/static/sounds/air_horns.mp3');
+var message_sound = new Audio('/static/sounds/chat_message.mp3');
+
 var room_name_field = document.getElementById("room-name");
 var create_room_button = document.getElementById("create-room");
 var join_room_button = document.getElementById("join-room");
@@ -56,6 +63,23 @@ socket.on('room-message', (message) => {
 
 socket.on('chat-message-receive', (data) => {
     updateChat(data.sender, data.message);
+    message_sound.play();
+});
+
+socket.on('notify-turn', () => {
+    bell_sound.play();
+});
+
+socket.on('won-lie', () => {
+    air_horns_sound.play();
+});
+
+socket.on('lost-dice', () => {
+    darkness_sound.play();
+});
+
+socket.on('roll-dice', () => {
+    dice_sound.play();
 });
 
 function createRoom() {
@@ -92,7 +116,7 @@ function updatePlayerList(players, active, gameStarted) {
 
         if (players[i].dice_rolls.length != 0) {
             if (active) list_elem.textContent += ` - ${players[i].dice_rolls.length} dice remaining`;
-            else list_elem.textContent += players[i].dice_rolls.join(' ');
+            else list_elem.textContent += ' - ' + players[i].dice_rolls.join(' ');
         }
         else if (gameStarted) {
             list_elem.textContent += " - Out of dice!";
@@ -143,6 +167,7 @@ function raise() {
         }
         else {
             turn_helper_text.textContent = "";
+            money_sound.play();
         }
         socket.emit('raise', {
             amount: bid_amount.value,
