@@ -28,6 +28,7 @@ var bid_amount = document.getElementById("bid-amount");
 var bid_face = document.getElementById("bid-face");
 var turn_helper_text = document.getElementById("turn-helper-text");
 
+var bid_indicator = document.getElementById("bid-indicator");
 var turn_indicator = document.getElementById("turn-indicator");
 var begin_game_button = document.getElementById("begin-game");
 var request_round_button = document.getElementById("begin-next-round");
@@ -42,6 +43,7 @@ socket.on("updated-state", (data) => {
     addEvents(data.messages);
     updatePlayerList(data.players, data.active, data.gameStarted);
     buttonVisibilities(data.gameStarted, isTurn(data.players), data.bidAmount != 0, data.bidPlayer, data.active);
+    infoVisibility(data.players, data.bidPlayer, data.bidFace, data.bidAmount);
 });
 
 socket.on('notify-host', () => {
@@ -231,6 +233,20 @@ function buttonVisibilities(gameStarted, myTurn, bidOccured, biddingPlayer, acti
         raise_bid_div.hidden = true;
         call_lie_button.hidden = true;
         request_round_button.hidden = true;
+    }
+}
+
+function infoVisibility(players, biddingPlayer, bidFace, bidAmount) {
+    if (biddingPlayer != null) {
+        for (var i=0; i < players.length; i++) {
+            if (players[i].socketID == biddingPlayer) {
+                var playerName = players[i].name;
+                bid_indicator.innerHTML = `<b>${playerName}</b> holds the bid at <b>${bidAmount} ${bidFace}'s</b>`;
+            }
+        }
+    }
+    else {
+        bid_indicator.innerHTML = "";
     }
 }
 
