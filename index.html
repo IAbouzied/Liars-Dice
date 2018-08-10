@@ -29,8 +29,11 @@
             </div>
             <div class="rules">
                 <h2>How to Play</h2>
-                <p>Objective: Survive to be the last remaining player</p>
-                <p>The goal of the game is to be the last player remainining. A player is out of the game when they lose all of their dice. Each round begins with a player placing a bid of how many of a chosen face they believe there are between all players. For example, if a player bids that there are two fours, they are claiming that between all players, there are <em>at least</em> two fours have been rolled. Once a bid has been made, any player can challenge the bid. Once a bid is challenged, all the dice are revealed and the either the bidder or the challenger lose a dice depending on the quantaty of the face bidded on. If no one challenges a bid, the turn proceeds to the next player who must either challenge the previous bid, or raise to a higher bid. The higher bid is only required to be higher in quantity, any face can be selected.</p>
+                <p><b>Objective:</b> Be the last remaining player.</p>
+                <p>The game is played by placing a series of <b>bids.</b> A bid consists of a dice face and a quantity. A bid is correct if the dice face appears <em>at least</em> as many times as the specified quantity between all players. <em>Example: A bid of 4 of the dice face 5 is correct if a 5 appears at least 4 times between all players.</em></p>
+                <p><b>At any time where there is an active bid:</b> Any player may challenge the standing bid by <b>calling the lie.</b> When a player challenges the bid, all of the dice are revealed and the number of times the dice face bidded appears is tallied. If it matches or exceeds the bidded quantity, the challenger loses a dice. Otherwise, the player who placed the bid loses the dice. <b>The next round begins with the player who challenged the bid, regardless of outcome.</b></p>
+                <p><b>On a players turn:</b> The player must <b>raise</b> the current bid. the player may select any dice face they please, but they must exceed the quantity of the active bid. Alternatively, if a player does not wish to raise on their turn, they have the option to challenge the active bid.</p>
+                <p><b>The Chat:</b> This is just a simple text game on a rudimentary website. A chat is available for competitively inclined players to use <b>psychological warefare.</b> Mind games available include, but are not limited to: reverse psychology, demonstrating a mastery of statistics, and closing the browser right before you lose.</p>
             </div>
             <div class="players-connected">
                 <h2>Players</h2>
@@ -64,12 +67,6 @@
                 <button class="big-button" id="begin-game" onclick="requestGameStart()" hidden>Begin Game</button>
             </div>
             <div class="event-chat-boxes">
-                <div class="events">
-                    <h2>Events</h2>
-                    <ul class="event-list" id="event-list">
-            
-                    </ul>
-                </div>
                 <div class="chat">
                     <h2>Chat</h2>
                     <ul class="chat-list" id="chat-list">
@@ -79,6 +76,12 @@
                         <input type="text" id="chat-message" placeholder="Type to chat" disabled>
                         <button id="send-chat-button" onclick="sendChatMessage()" disabled>Send</button>
                     </div>
+                </div>
+                <div class="events">
+                    <h2>Events</h2>
+                    <ul class="event-list" id="event-list">
+            
+                    </ul>
                 </div>
             </div>
         </div>

@@ -51,6 +51,10 @@
     display: block;
 }
 
+.rules p {
+    margin: 7px 0;
+}
+
 .players-connected {
     margin: 20px 0;
 }
@@ -134,4 +138,16 @@
 
 .helper-text {
     color: rgb(170, 0, 0);
+}
+
+@media only screen and (min-width: 992px) {
+    .event-chat-boxes {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .event-chat-boxes .events, .event-chat-boxes .chat {
+        flex-grow: 1;
+        margin: 0px 10px;
+    }
 }
