@@ -4,6 +4,7 @@ var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 var HashMap = require('hashmap');
+
 var Game = require('./lib/Game');
 
 var app = express();
@@ -55,6 +56,7 @@ io.on('connection', (socket) => {
         if (Object.keys(socket.rooms).length > 1) {
             socket.emit("room-message", "You are already in a room");
         }
+        //Create room
         else if (games.get(roomName) == null) {
             games.set(roomName, new Game());
             socket.join(roomName);
@@ -147,6 +149,7 @@ function getSocketGame(socket) {
     return null;
 }
 
+//Sends the game state to all players
 function updateStateAllPlayers(room) {
     var game = games.get(room);
     if (game != null) {

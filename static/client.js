@@ -1,5 +1,6 @@
 var socket = io();
 
+//Sounds
 var darkness_sound = new Audio('/static/sounds/darkness.mp3');
 var bell_sound = new Audio('/static/sounds/bell.mp3');
 var dice_sound = new Audio('/static/sounds/dice_roll.mp3');
@@ -38,6 +39,7 @@ var chat_list = document.getElementById("chat-list");
 var chat_message_field = document.getElementById("chat-message");
 var chat_button = document.getElementById("send-chat-button");
 
+//Received an update
 socket.on("updated-state", (data) => {
     bid_amount.min = String(Number(data.bidAmount) + 1);
     addEvents(data.messages);
@@ -68,18 +70,16 @@ socket.on('chat-message-receive', (data) => {
     message_sound.play();
 });
 
+//Playing sounds
 socket.on('notify-turn', () => {
     bell_sound.play();
 });
-
 socket.on('won-lie', () => {
     air_horns_sound.play();
 });
-
 socket.on('lost-dice', () => {
     darkness_sound.play();
 });
-
 socket.on('roll-dice', () => {
     dice_sound.play();
 });
