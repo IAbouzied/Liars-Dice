@@ -4,7 +4,7 @@ This is a multiplayer game of Liar's Dice built on a Node/Express server using S
 ## The Game
 Liar's Dice is a simple bluffing game. Players wager how many of a dice face are on a table based on their own dice and the wagers of other players. A detailed explanation of the game can be found [here](https://en.wikipedia.org/wiki/Liar%27s_dice).
 
-I have deployed this app to [liarsdiceonline.com](liarsdiceonline.com), feel free to give it a go. It is a multiplayer game, so be ready to either play with someone else or run it in two tabs.
+I have deployed this app to [liarsdiceonline.com](http://www.liarsdiceonline.com), feel free to give it a go. It is a multiplayer game, so be ready to either play with someone else or run it in two tabs.
 
 ## Building
 To run locally: 
